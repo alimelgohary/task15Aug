@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:urltry/models/users.dart';
 import 'package:urltry/services/users.dart';
-import 'package:urltry/main.dart';
-import 'package:url_launcher/url_launcher.dart';
+import '../utils.dart';
+import 'Map.dart';
 
-class PostsScreen extends StatefulWidget {
+class UsersScreen extends StatefulWidget {
   @override
   _PostsScreenState createState() => _PostsScreenState();
 }
 
-class _PostsScreenState extends State<PostsScreen> {
+class _PostsScreenState extends State<UsersScreen> {
   int i = 0;
   bool loading = true;
   List<User> list = [];
@@ -27,9 +27,6 @@ class _PostsScreenState extends State<PostsScreen> {
     getPosts();
   }
 
-  void launchURL(_url) async => await canLaunch(_url)
-      ? await launch(_url)
-      : {print('error launching url')};
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -118,6 +115,21 @@ class _PostsScreenState extends State<PostsScreen> {
                         launchURL("https:${list[i].website}");
                       },
                     ),
+                    Padding(padding: EdgeInsets.all(20)),
+                    InkWell(
+                      onTap: () {
+                        go(context, MapSample(double.parse(list[0].address.geo.lat),double.parse(list[0].address.geo.lng)));
+                      },
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Go to location',
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            Icon(Icons.location_on),
+                          ]),
+                    )
                   ],
                 ),
         ),
