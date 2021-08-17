@@ -1,4 +1,4 @@
-package com.example.urltry
+package com.project.urltry
 
 import io.flutter.embedding.android.FlutterActivity
 
